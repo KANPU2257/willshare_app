@@ -1,7 +1,7 @@
-// Thapanapong
+// Thapanapong 6210742257
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:student_app/screens/friend/menu_list_screen.dart';
+import 'package:student_app/screens/menu/menu_list_screen.dart';
 import 'models/friend/friends_list_model.dart';
 import 'screens/friend/friends_screen.dart';
 

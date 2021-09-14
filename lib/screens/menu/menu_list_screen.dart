@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:student_app/models/friend/friends_list_model.dart';
 import '../../models/friend/friends_list_model.dart';
-import 'add_friends_screen.dart';
+import '../friend/add_friends_screen.dart';
 import '../../widgets/friend/friends_list.dart';
  
 class MenuListScreen extends StatefulWidget {
