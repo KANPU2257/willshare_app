@@ -1,35 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:student_app/models/friend_model.dart';
+import 'package:student_app/models/list_model.dart';
+import 'package:student_app/models/menu_model.dart';
 import 'no_data.dart';
-import '../../models/list_model.dart';
-import 'friends_tile.dart';
+import 'menus_tile.dart';
 
 // ignore: use_key_in_widget_constructors
-class FriendsList extends StatefulWidget {
+class MenusList extends StatefulWidget {
   @override
-  _FriendsListState createState() => _FriendsListState();
+  _MenusListState createState() => _MenusListState();
 }
 
-class _FriendsListState extends State<FriendsList> {
-  late List<FriendModel> nameItems;
+class _MenusListState extends State<MenusList> {
+  late List<MenuModel> items;
   @override
   Widget build(BuildContext context) {
-    ListModel nameObj = Provider.of<ListModel>(context);
-    nameItems = nameObj.friendItems;
+    ListModel objects = Provider.of<ListModel>(context);
+    items = objects.menuItems;
     // ignore: prefer_is_empty
-    return nameItems.length == 0
+    return items.length == 0
         ? const NoDataScreen(
-            title: 'ยังไม่มีรายชื่อเพื่อนร่วมโต๊ะ',
-            details: 'เพิ่มรายชื่อเพื่อนร่วมโต๊ะโดยคลิกปุ่ม + ',
+            title: 'ยังไม่มีรายการอาหาร',
+            details: 'เพิ่มรายการอาหารโดยคลิกปุ่ม + ',
           )
         : ListView.builder(
             itemBuilder: (context, index) {
               return Column(
                 children: [
                   Dismissible(
-                    key: Key(nameItems[index].idName),
-                    child: FriendTile(item: nameItems[index]),
+                    key: Key(items[index].idMenu),
+                    child: FriendTile(item: items[index]),
                     background: Container(
                       padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
                       child: Text(
@@ -48,8 +49,8 @@ class _FriendsListState extends State<FriendsList> {
                     ),
                     onDismissed: (direction) {
                       if (direction == DismissDirection.endToStart) {
-                        nameObj.deleteFriend(nameItems[index]);
-                        nameItems.removeAt(index);
+                        objects.deleteMenu(items[index]);
+                        items.removeAt(index);
                       }
                     },
                     direction: DismissDirection.endToStart,
@@ -63,7 +64,7 @@ class _FriendsListState extends State<FriendsList> {
                 ],
               );
             },
-            itemCount: nameItems.length,
+            itemCount: items.length,
           );
   }
 }

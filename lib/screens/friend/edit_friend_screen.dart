@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import '../../widgets/friend/friend_form.dart';
-import '../../models/friend/friend_model.dart';
+import '../../models/friend_model.dart';
 
 class EditFriendScreen extends StatelessWidget {
-  final FriendModel friend;
+  final FriendModel item;
   // ignore: use_key_in_widget_constructors
-  const EditFriendScreen({required this.friend});
+  const EditFriendScreen({required this.item});
   @override
   Widget build(BuildContext context) {
     return Container(
       color: const Color(0xff747574),
-      child: FriendForm(friends: friend),
+      child: FriendForm(friendItems: item),
     );
   }
 }

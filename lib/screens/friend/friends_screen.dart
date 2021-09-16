@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:student_app/models/friend/friends_list_model.dart';
-import '../../models/friend/friends_list_model.dart';
+import 'package:student_app/models/list_model.dart';
 import 'add_friends_screen.dart';
 import '../../widgets/friend/friends_list.dart';
 
@@ -14,7 +13,7 @@ class FriendsScreen extends StatefulWidget {
 class _FriendsScreenState extends State<FriendsScreen> {
   @override
   Widget build(BuildContext context) {
-    FriendsListModel friendsObject = Provider.of<FriendsListModel>(context);
+    ListModel objects = Provider.of<ListModel>(context);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -45,7 +44,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                   ),
                   const SizedBox(height: 5.0),
                   Text(
-                    'เพื่อนร่วมโต๊ะทั้งหมด ${friendsObject.friends.length} คน',
+                    'เพื่อนร่วมโต๊ะทั้งหมด ${objects.friendItems.length} คน',
                     style: const TextStyle(
                       color: Colors.blueGrey,
                       fontSize: 20,

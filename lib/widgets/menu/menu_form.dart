@@ -1,23 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:student_app/models/friend_model.dart';
-import '../../models/friend_model.dart';
+import 'package:student_app/models/menu_model.dart';
 import '../../models/list_model.dart';
+import 'package:flutter/scheduler.dart' show timeDilation;
 
 TextStyle kTextFieldStyle = const TextStyle(
   decorationColor: Colors.red,
   color: Colors.blueGrey,
 );
 
-class FriendForm extends StatefulWidget {
-  final FriendModel? friendItems;
+class MenuForm extends StatefulWidget {
+  final MenuModel? menuItems;
   // ignore: use_key_in_widget_constructors
-  const FriendForm({this.friendItems});
+  const MenuForm({this.menuItems});
   @override
-  _FriendFormState createState() => _FriendFormState();
+  _MenuFormState createState() => _MenuFormState();
 }
 
-class _FriendFormState extends State<FriendForm> {
+class _MenuFormState extends State<MenuForm> {
   late bool isEditing;
   late TextEditingController nameController;
   late TextEditingController payController;
@@ -31,13 +32,13 @@ class _FriendFormState extends State<FriendForm> {
     payController = TextEditingController();
     nameMenuController = TextEditingController();
     priceController = TextEditingController();
-    if (widget.friendItems != null) {
+    if (widget.menuItems != null) {
       isEditing = true;
-      nameController.text = widget.friendItems!.name;
-      nameController.selection = TextSelection.fromPosition(
-        TextPosition(offset: nameController.text.length),
+      nameMenuController.text = widget.menuItems!.nameMenu;
+      nameMenuController.selection = TextSelection.fromPosition(
+        TextPosition(offset: nameMenuController.text.length),
       );
-      payController.text = widget.friendItems!.pay.toString();
+      priceController.text = widget.menuItems!.price.toString();
     }
   }
 
@@ -52,7 +53,7 @@ class _FriendFormState extends State<FriendForm> {
 
   @override
   Widget build(BuildContext context) {
-    ListModel friendObjects = Provider.of<ListModel>(context);
+    ListModel menuObjects = Provider.of<ListModel>(context);
     return Container(
       padding: const EdgeInsets.only(top: 50),
       child: Container(
@@ -69,7 +70,7 @@ class _FriendFormState extends State<FriendForm> {
           children: [
             const SizedBox(height: 30),
             Text(
-              isEditing ? widget.friendItems!.name : 'เพิ่มเพื่อนร่วมโต๊ะ',
+              isEditing ? widget.menuItems!.nameMenu : 'เพิ่มรายการอาหาร',
               style: const TextStyle(
                 color: Colors.pinkAccent,
                 fontSize: 30,
@@ -79,11 +80,11 @@ class _FriendFormState extends State<FriendForm> {
             const SizedBox(height: 20),
             TextField(
               decoration: InputDecoration(
-                labelText: 'ชื่อ',
+                labelText: 'รายการอาหาร',
                 focusColor: Colors.pink,
                 labelStyle: kTextFieldStyle,
                 icon: const Icon(
-                  Icons.person_outline,
+                  Icons.restaurant,
                   color: Colors.blueGrey,
                 ),
                 fillColor: Colors.blueGrey,
@@ -94,36 +95,100 @@ class _FriendFormState extends State<FriendForm> {
                   borderSide: BorderSide(color: Colors.pinkAccent),
                 ),
               ),
-              controller: nameController,
+              controller: nameMenuController,
               autofocus: true,
               autocorrect: false,
               style: kTextFieldStyle,
             ),
             const SizedBox(
-              height: 30,
+              height: 5,
             ),
-            _buildButton(friendObjects),
+            TextField(
+              decoration: InputDecoration(
+                labelText: 'ราคา',
+                focusColor: Colors.pink,
+                labelStyle: kTextFieldStyle,
+                icon: const Icon(
+                  Icons.payment,
+                  color: Colors.blueGrey,
+                ),
+                fillColor: Colors.blueGrey,
+                enabledBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.blueGrey),
+                ),
+                focusedBorder: const UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.pinkAccent),
+                ),
+              ),
+              controller: priceController,
+              keyboardType: TextInputType.number,
+              style: kTextFieldStyle,
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            const SizedBox(height: 20),
+            // Check-Box friends
+            Text(
+              'Add friend',
+              style: const TextStyle(
+                color: Colors.pinkAccent,
+                fontSize: 30,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            CheckboxListTile(
+              //activeColor: Colors.red,
+              title: Text(
+                'Kampoo',
+                style: TextStyle(
+                  color: Colors.blueGrey,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w400,
+                ),
+              ),
+              secondary: Icon(
+                Icons.person_add,
+                size: 30.0,
+                color: Colors.blueGrey,
+              ),
+              controlAffinity: ListTileControlAffinity.trailing,
+              value: timeDilation != 1.0,
+              onChanged: (bool? value) {
+                setState(() {
+                  timeDilation = value! ? 1.1 : 1.0;
+                });
+              },
+              
+              activeColor:  Colors.pinkAccent,
+              
+            ),
+            
+
+            _buildButton(menuObjects),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildButton(ListModel friendsObject) {
+  Widget _buildButton(
+    ListModel menusObject,
+  ) {
     final ButtonStyle style_cancel = ElevatedButton.styleFrom(
       textStyle: const TextStyle(fontSize: 20),
       primary: Colors.blueGrey,
       minimumSize: Size(15, 5),
-      padding: const EdgeInsets.only(top: 5, bottom: 5,left: 20, right: 20),
+      padding: const EdgeInsets.only(top: 5, bottom: 5, left: 20, right: 20),
     );
 
     final ButtonStyle style_add = ElevatedButton.styleFrom(
       textStyle: const TextStyle(fontSize: 20),
       primary: Colors.pinkAccent,
       minimumSize: Size(15, 5),
-      padding: const EdgeInsets.only(top: 5, bottom: 5,left: 20, right: 20),
+      padding: const EdgeInsets.only(top: 5, bottom: 5, left: 20, right: 20),
     );
-    
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
@@ -139,25 +204,26 @@ class _FriendFormState extends State<FriendForm> {
               fontWeight: FontWeight.w900,
             ),
           ),
-          
         ),
         ElevatedButton(
           style: style_add,
           onPressed: () {
             if (isEditing) {
-              friendsObject.editFriend(
-                FriendModel(
-                  idName: widget.friendItems!.idName,
-                  name: nameController.text,
-                  pay: int.tryParse(payController.text) ?? 0,
+              menusObject.editMenu(
+                MenuModel(
+                  idMenu: widget.menuItems!.idMenu,
+                  nameMenu: nameMenuController.text,
+                  price: int.tryParse(priceController.text) ?? 0,
+                  // edit friends lsit
                 ),
               );
             } else {
-              friendsObject.addFriend(
-                FriendModel(
-                  idName: DateTime.now().toIso8601String(),
-                  name: nameController.text,
-                  pay: int.tryParse(payController.text) ?? 0,
+              menusObject.addMenu(
+                MenuModel(
+                  idMenu: DateTime.now().toIso8601String(),
+                  nameMenu: nameMenuController.text,
+                  price: int.tryParse(priceController.text) ?? 0,
+                  // add friends lsit
                 ),
               );
             }
@@ -165,7 +231,7 @@ class _FriendFormState extends State<FriendForm> {
           },
           child: Text(
             isEditing ? 'แก้ไข' : 'เพิ่ม',
-            style: const TextStyle( 
+            style: const TextStyle(
               color: Colors.white,
               fontWeight: FontWeight.w900,
             ),

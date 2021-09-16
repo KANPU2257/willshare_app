@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../../models/friend_model.dart';
-import '../../screens/friend/edit_friend_screen.dart';
+import 'package:student_app/models/friend_model.dart';
+import 'package:student_app/models/menu_model.dart';
+import 'package:student_app/screens/menu/edit_menu_screen.dart';
 
 TextStyle kTileTextStyle = const TextStyle(
   color: Colors.pinkAccent,
@@ -9,7 +10,7 @@ TextStyle kTileTextStyle = const TextStyle(
 );
 
 class FriendTile extends StatelessWidget {
-  final FriendModel item;
+  final MenuModel item;
   // ignore: use_key_in_widget_constructors
   const FriendTile({required this.item});
   @override
@@ -22,7 +23,7 @@ class FriendTile extends StatelessWidget {
         bottom: 0,
       ),
       title: Text(
-        item.name,
+        item.nameMenu,
         style: kTileTextStyle,
       ),
       // trailing: Text(
@@ -33,7 +34,7 @@ class FriendTile extends StatelessWidget {
         showModalBottomSheet(
           isScrollControlled: true,
           context: context,
-          builder: (context) => EditFriendScreen(
+          builder: (context) => EditMenuScreen(
             item: item,
           ),
         );
