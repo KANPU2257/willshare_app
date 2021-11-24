@@ -3,8 +3,6 @@ import 'package:provider/provider.dart';
 import 'package:student_app/models/friend_model.dart';
 import 'package:student_app/models/menu_model.dart';
 import '../../models/list_model.dart';
-import 'package:flutter/scheduler.dart' show timeDilation;
-
 TextStyle kTextFieldStyle = const TextStyle(
   decorationColor: Colors.red,
   color: Colors.blueGrey,
@@ -19,6 +17,28 @@ class MenuForm extends StatefulWidget {
 }
 
 class _MenuFormState extends State<MenuForm> {
+  late List<FriendModel> x;
+  Map<String, bool> lF = {
+    'Kampoo': false,
+    'Aom': false,
+    'Pon': false,
+    'Peeter': false,
+    'Jame': false,
+  };
+
+  var holder_1 = [];
+
+  getItems() {
+    lF.forEach((key, value) {
+      if (value == true) {
+        holder_1.add(key);
+      }
+    });
+    print(holder_1);
+    holder_1.clear();
+  }
+
+  late List<FriendModel> nameItems;
   late bool isEditing;
   late TextEditingController nameController;
   late TextEditingController payController;
@@ -54,6 +74,9 @@ class _MenuFormState extends State<MenuForm> {
   @override
   Widget build(BuildContext context) {
     ListModel menuObjects = Provider.of<ListModel>(context);
+    /////////////////////
+    ListModel nameObj = Provider.of<ListModel>(context);
+    nameItems = nameObj.friendItems;
     return Container(
       padding: const EdgeInsets.only(top: 50),
       child: Container(
@@ -130,41 +153,36 @@ class _MenuFormState extends State<MenuForm> {
             const SizedBox(height: 20),
             // Check-Box friends
             Text(
-              'Add friend',
+              'เพิ่มเพื่อน',
               style: const TextStyle(
                 color: Colors.pinkAccent,
-                fontSize: 30,
+                fontSize: 20,
                 fontWeight: FontWeight.bold,
               ),
             ),
-            CheckboxListTile(
-              //activeColor: Colors.red,
-              title: Text(
-                'Kampoo',
-                style: TextStyle(
-                  color: Colors.blueGrey,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w400,
-                ),
+
+            Expanded(
+              child: ListView(
+                children: lF.keys.map((String key) {
+                  return new CheckboxListTile(
+                    title: new Text(key,
+                        style: const TextStyle(
+                          color: Colors.blueGrey,
+                          fontSize: 16,
+                        )),
+                    value: lF[key],
+                    activeColor: Colors.pinkAccent,
+                    checkColor: Colors.white,
+                    onChanged: (value) {
+                      setState(() {
+                        lF[key] = value!;
+                      });
+                    },
+                  );
+                }).toList(),
               ),
-              secondary: Icon(
-                Icons.person_add,
-                size: 30.0,
-                color: Colors.blueGrey,
-              ),
-              controlAffinity: ListTileControlAffinity.trailing,
-              value: timeDilation != 1.0,
-              onChanged: (bool? value) {
-                setState(() {
-                  timeDilation = value! ? 1.1 : 1.0;
-                });
-              },
-              
-              activeColor:  Colors.pinkAccent,
-              
             ),
             
-
             _buildButton(menuObjects),
           ],
         ),

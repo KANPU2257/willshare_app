@@ -6,5 +6,5 @@ class FriendModel {
     required this.idName,
     required this.name,
     required this.pay,
-  });
+  }); 
 }

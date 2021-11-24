@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:student_app/models/list_model.dart';
-import 'add_friends_screen.dart';
-import '../../widgets/friend/friends_list.dart';
+import '../../widgets/cal/cal_list.dart';
 
 // ignore: use_key_in_widget_constructors 
-class FriendsScreen extends StatefulWidget {
+class CalculateScreen extends StatefulWidget {
   @override
-  _FriendsScreenState createState() => _FriendsScreenState();
+  _CalculateScreenState createState() => _CalculateScreenState();
 }
 
-class _FriendsScreenState extends State<FriendsScreen> {
+class _CalculateScreenState extends State<CalculateScreen> {
   @override
   Widget build(BuildContext context) {
     ListModel objects = Provider.of<ListModel>(context);
@@ -27,7 +26,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                   const CircleAvatar(
                     radius: 40.0,
                     child: Icon(
-                      Icons.person_add,
+                      Icons.calculate,
                       size: 40.0,
                       color: Colors.white,
                     ),
@@ -35,7 +34,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
                   ),
                   const SizedBox(height: 20.0),
                   Text(
-                    'รายชื่อเพื่อนร่วมโต๊ะ',
+                    'คำนวณ',
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
                       color: Colors.grey.shade400,
@@ -44,10 +43,24 @@ class _FriendsScreenState extends State<FriendsScreen> {
                   ),
                   const SizedBox(height: 5.0),
                   Text(
-                    'เพื่อนร่วมโต๊ะทั้งหมด ${objects.friendItems.length} คน',
+                    'เพื่อนร่วมโต๊ะทั้งหมด ${5} คน',
                     style: const TextStyle(
                       color: Colors.blueGrey,
                       fontSize: 20,
+                    ),
+                  ),
+                  Text(
+                    'รายการอาหารทั้งหมด ${objects.menuItems.length} รายการ',
+                    style: const TextStyle(
+                      color: Colors.blueGrey,
+                      fontSize: 20,
+                    ),
+                  ),
+                  Text(
+                    'ระบบจะคำนวณค่าอาหารที่แต่ละท่านต้องจ่ายอย่างเหมาะสม',
+                    style: const TextStyle(
+                      color: Colors.blueGrey,
+                      fontSize: 15,
                     ),
                   ),
                 ],
@@ -60,8 +73,6 @@ class _FriendsScreenState extends State<FriendsScreen> {
                 ),
                 child: Padding(
                   padding: const EdgeInsets.only(
-                    // left: 40,
-                    // right: 40,
                     top: 20,
                     bottom: 10,
                   ),
@@ -72,20 +83,7 @@ class _FriendsScreenState extends State<FriendsScreen> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-        backgroundColor: Colors.pinkAccent,
-        onPressed: () {
-          showModalBottomSheet(
-            isScrollControlled: true,
-            context: context,
-            builder: (context) => AddFriendsScreen(),
-          );
-        },
-      ),
     );
   }
 }
+

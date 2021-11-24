@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:student_app/models/friend_model.dart';
 import 'package:student_app/models/list_model.dart';
 import 'package:student_app/models/menu_model.dart';
 import 'no_data.dart';
@@ -30,7 +29,7 @@ class _MenusListState extends State<MenusList> {
                 children: [
                   Dismissible(
                     key: Key(items[index].idMenu),
-                    child: FriendTile(item: items[index]),
+                    child: MenuTile(item: items[index]),
                     background: Container(
                       padding: EdgeInsets.fromLTRB(30, 15, 30, 15),
                       child: Text(

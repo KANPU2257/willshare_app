@@ -3,6 +3,7 @@ import 'friend_model.dart';
 import 'menu_model.dart';
 
 class ListModel extends ChangeNotifier {
+  late List<FriendModel> x;
   List<FriendModel> friendItems;
   List<MenuModel> menuItems;
   ListModel({required this.friendItems, required this.menuItems});
@@ -11,8 +12,10 @@ class ListModel extends ChangeNotifier {
     friendItems.insert(0, newItim);
     notifyListeners();
   }
+
   void editFriend(FriendModel newItem) {
-    var index = friendItems.indexWhere((element) => element.idName == newItem.idName);
+    var index =
+        friendItems.indexWhere((element) => element.idName == newItem.idName);
     if (index != -1) {
       friendItems[index] = FriendModel(
         idName: newItem.idName,
@@ -22,17 +25,21 @@ class ListModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+
   void deleteFriend(FriendModel editItem) {
     friendItems.map((e) => e.idName != editItem.idName).toList();
     notifyListeners();
   }
+
 //////////////////////////////////////////////////////////////////////////
   void addMenu(MenuModel newItim) {
     menuItems.insert(0, newItim);
     notifyListeners();
   }
+
   void editMenu(MenuModel newItem) {
-    var index = menuItems.indexWhere((element) => element.idMenu == newItem.idMenu);
+    var index =
+        menuItems.indexWhere((element) => element.idMenu == newItem.idMenu);
     if (index != -1) {
       friendItems[index] = FriendModel(
         idName: newItem.idMenu,
@@ -42,6 +49,7 @@ class ListModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+
   void deleteMenu(MenuModel editItem) {
     menuItems.map((e) => e.idMenu != editItem.idMenu).toList();
     notifyListeners();

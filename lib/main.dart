@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:student_app/screens/menu/menus_screen.dart';
 import 'models/list_model.dart';
 import 'screens/friend/friends_screen.dart';
+import 'screens/cal/cal_screen.dart';
 
 void main() {
     runApp(MyApp());
@@ -37,6 +38,7 @@ class _LauncherState extends State<Launcher> {
   List<Widget> _pageWidget = <Widget>[
     FriendsScreen(),
     MenusScreen(),
+    CalculateScreen(),
   ];
   List<BottomNavigationBarItem> _menuBar = <BottomNavigationBarItem>[
     BottomNavigationBarItem(
@@ -46,6 +48,10 @@ class _LauncherState extends State<Launcher> {
     BottomNavigationBarItem(
       icon: Icon(Icons.format_list_bulleted),
       label: 'Menu List',
+    ),
+    BottomNavigationBarItem(
+      icon: Icon(Icons.calculate),
+      label: 'Calculate',
     ),
   ];
 
@@ -70,87 +76,79 @@ class _LauncherState extends State<Launcher> {
   }
 }
 
-/*
-// Thapanapong 6210742257 kampu
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:student_app/models/menu/menus_list_model.dart';
-import 'package:student_app/screens/menu/menus_screen.dart';
-import 'models/friend/friends_list_model.dart';
-import 'models/menu/menus_list_model.dart';
-import 'screens/friend/friends_screen.dart';
+// import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MyApp());
-}
+// void main() => runApp(MyApp());
 
-// ignore: use_key_in_widget_constructors
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Launcher(),
-      theme: ThemeData.dark(),
-    );
-  }
-}
+// class MyApp extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return MaterialApp(
+      
+//       home: Scaffold(
+//           appBar: AppBar(
+          
+            
+//             title: Text("Multiple Checkbox Dynamically"),
+//           ),
+//           body: SafeArea(
+//               child : Center(
+//                 child:DynamicallyCheckbox(),
+//               )
+//           )
+//       ),
+//     );
+//   }
+// }
 
-class Launcher extends StatefulWidget {
-  // static const routeName = '/';
+// class DynamicallyCheckbox extends StatefulWidget {
+//   @override
+//   DynamicallyCheckboxState createState() => new DynamicallyCheckboxState();
+// }
 
-  @override
-  State<StatefulWidget> createState() {
-    return _LauncherState();
-  }
-}
+// class DynamicallyCheckboxState extends State {
 
-class _LauncherState extends State<Launcher> {
-  int _selectedIndex = 0;
-  List<Widget> _pageWidget = <Widget>[
-    ChangeNotifierProvider(
-      create: (context) => FriendsListModel(friends: []),
-      builder: (_, __) => MaterialApp(
-        home: FriendsScreen(),
-        theme: ThemeData.dark(),
-      ),
-    ),
-    ChangeNotifierProvider(
-      create: (context) => MenusListModel(menus: []),
-      builder: (_, __) => MaterialApp(
-        home: MenusScreen(),
-        theme: ThemeData.dark(),
-      ),
-    ),
-  ];
-  List<BottomNavigationBarItem> _menuBar = <BottomNavigationBarItem>[
-    BottomNavigationBarItem(
-      icon: Icon(Icons.person_add),
-      label: 'Add Friends',
-    ),
-    BottomNavigationBarItem(
-      icon: Icon(Icons.format_list_bulleted),
-      label: 'Menu List',
-    ),
-  ];
+//   Map<String, bool> List = {
+//     'Kampoo' : false,
+//     'Chocolates' : false,
+//     'Flour' : false,
+//     'Fllower' : false,
+//     'Fruits' : false,
+//   };
 
-  void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
+//   var holder_1 = [];
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: _pageWidget.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        items: _menuBar,
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.pinkAccent,
-        unselectedItemColor: Colors.grey.shade400,
-        onTap: _onItemTapped,
-      ),
-    );
-  }
-}
-*/
+//   getItems(){
+//     List.forEach((key, value) {
+//       if(value == true)
+//       {
+//         holder_1.add(key);
+//       }
+//     });
+//     print(holder_1);
+//     holder_1.clear();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column (children: <Widget>[
+//       Expanded(
+//         child :
+//         ListView(
+//           children: List.keys.map((String key) {
+//             return new CheckboxListTile(
+//               title: new Text(key),
+//               value: List[key],
+//               activeColor: Colors.deepPurple[400],
+//               checkColor: Colors.white,
+//               onChanged: (value) {
+//                 setState(() {
+//                   List[key] = value!;
+//                 });
+//               },
+//             );
+//           }).toList(),
+//         ),
+//       ),]);
+//   }
+// }

@@ -56,7 +56,7 @@ class _FriendsListState extends State<FriendsList> {
                   ),
                   const Divider(
                     color: Colors.blueGrey,
-                    indent: 20,
+                    indent: 20, 
                     endIndent: 20,
                     height: 1,
                   ),

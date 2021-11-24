@@ -1,17 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:student_app/models/menu_model.dart';
-import 'package:student_app/screens/menu/edit_menu_screen.dart';
+import '../../models/friend_model.dart';
+import '../../screens/cal/capture_cal_screen.dart';
 
 TextStyle kTileTextStyle = const TextStyle(
   color: Colors.pinkAccent,
   fontSize: 18,
   fontWeight: FontWeight.w500,
 );
-
-class MenuTile extends StatelessWidget {
-  final MenuModel item;
+class FriendTile extends StatelessWidget {
+  final FriendModel item;
   // ignore: use_key_in_widget_constructors
-  const MenuTile({required this.item});
+  void main(){
+
+  }
+  const FriendTile({required this.item});
   @override
   Widget build(BuildContext context) {
     return ListTile(
@@ -22,22 +24,21 @@ class MenuTile extends StatelessWidget {
         bottom: 0,
       ),
       title: Text(
-        item.nameMenu,
+        item.name,
         style: kTileTextStyle,
       ),
-      // trailing: Text(
-      //   friend.pay.toString(),
-      //   style: kTileTextStyle,
-      // ),
       onTap: () {
         showModalBottomSheet(
           isScrollControlled: true,
           context: context,
-          builder: (context) => EditMenuScreen(
+          builder: (context) => Capture(
             item: item,
           ),
         );
       },
     );
   }
+}
+
+class $ {
 }
